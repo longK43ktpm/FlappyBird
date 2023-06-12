@@ -1,0 +1,93 @@
+@startuml
+class Constants {
++ {static} int SCREEN_WIDTH
++ {static} int SCREEN_HEIGHT
+}
+class Bird {
+- int count
+- ArrayList<Bitmap> animation
+- float drop
++ void drawWhenPause(Canvas)
++ void draw(Canvas,int)
+- void drop(int)
++ ArrayList<Bitmap> getAnimation()
++ void setAnimation(ArrayList<Bitmap>)
++ Bitmap getBitmap()
++ float getDrop()
++ void setDrop(float)
+}
+class MainActivity {
++ {static} TextView textScore
++ {static} RelativeLayout layoutGameOver
++ {static} Button buttonStart
+- GameView gameView
+- MediaPlayer mediaPlayer
++ {static} DBManager datasource
+# void onCreate(Bundle)
+- void anhXa()
+}
+class DBManager {
++ {static} String DATABASE_NAME
+- {static} String TABLE_NAME
+- {static} String ID
+- {static} String BEST_SCORE
+- Context context
++ void onCreate(SQLiteDatabase)
++ void onUpgrade(SQLiteDatabase,int,int)
++ int UpdateBestScore(int)
+}
+class Pipe {
++ {static} float speed
++ void drawWhenPause(Canvas)
++ void draw(Canvas,int)
++ void setBitmap(Bitmap)
++ void randomY()
+}
+class GameView {
+- Bird bird
+- android.os.Handler handler
+- Runnable runnable
+- ArrayList<Pipe> arrPipes
+- int totalPipe
+- int score
+- boolean start
+- int soundJump
+- SoundPool soundPool
+- int FRAME_PER_SECOND
+- int TIME_PER_FRAME
+- void initPipe()
+- void initBird()
++ void draw(Canvas)
+- void updateAndDraw(Canvas)
++ boolean onTouchEvent(MotionEvent)
++ boolean isStart()
++ void setStart(boolean)
++ void reset()
++ void setPlaying(boolean)
+}
+class BaseObject {
+# float x
+# int width
+# Rect rect
+# Bitmap bitmap
++ float getX()
++ void setX(float)
++ float getY()
++ void setY(float)
++ int getWidth()
++ void setWidth(int)
++ int getHeight()
++ void setHeight(int)
++ Bitmap getBitmap()
++ void setBitmap(Bitmap)
++ Rect getRect()
++ void setRect(Rect)
+}
+
+
+BaseObject <|-- Bird
+AppCompatActivity <|-- MainActivity
+SQLiteOpenHelper <|-- DBManager
+BaseObject <|-- Pipe
+View <|-- GameView
+@enduml
